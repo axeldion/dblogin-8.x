@@ -1,0 +1,15 @@
+dblogin.form:
+  path: /admin/config/people/dblogin
+  defaults:
+    _title: 'DBlogin'
+    _form: '\Drupal\dblogin\Form\dbloginForm'
+  requirements:
+    _permission: 'access administration pages'
+dblogin.reddb:
+      path: /admin/reddb
+      defaults:
+        _title: 'DBlogin'
+        _form: '\Drupal\dblogin\Controller\DbloginController::reddb'
+      requirements:
+        _permission: 'access content'
+    

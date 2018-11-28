@@ -1,0 +1,6 @@
+dblogin:
+  dblogin_secure: 'https'
+  dblogin_server: '/phpmyadmin/'
+  dblogin_username: 'drupal'
+  dblogin_password: 'drupal'
+  dblogin_extra: 'server=1'

@@ -1,0 +1,9 @@
+<?php
+function dblogin_permission() {
+  return array('access database' => array(
+      'title' => t('Allow users to access the database'),
+      'description' => t('This will add a menu link to the databsae server in the menu system, to allow users to login directly in the database through PhpMyAdmin (for example). Warning: This will expose the database username and passwords to the user.'),
+      'restrict access' => TRUE,
+               ));
+}
+?>

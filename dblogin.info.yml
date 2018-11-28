@@ -1,0 +1,6 @@
+name : 'DB Login'
+description : 'Provide menu link to log directly into DB Admin software for this database.'
+core : '8.x'
+configure : dblogin.form
+type: module
+package: Custom

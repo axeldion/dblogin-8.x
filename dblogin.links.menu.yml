@@ -1,0 +1,5 @@
+sharedemail.form:
+  title: 'DB login settings'
+  description: 'Settings for dblogin module.'
+  route_name: dblogin.form
+  parent: 'system.admin_config_content'
