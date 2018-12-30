@@ -9,7 +9,7 @@ dblogin.reddb:
       path: /admin/reddb
       defaults:
         _title: 'DBlogin'
-        _form: '\Drupal\dblogin\Controller\DbloginController::reddb'
+        _controller: '\Drupal\dblogin\Controller\DbloginController::reddb'
       requirements:
         _permission: 'access content'
     

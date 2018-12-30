@@ -17,9 +17,10 @@ class dbloginForm extends ConfigFormBase {
 
         $form = parent::buildForm($form, $form_state);
 
-        $config = $this->config('dblogin.settings');
+        $config = \Drupal::config('dblogin.settings');
 
         global $base_url, $base_root;
+        dpr($base_url);
   $form['basic'] =
     array(
       '#type' => 'fieldset',
@@ -33,7 +34,7 @@ class dbloginForm extends ConfigFormBase {
   }
   $description = t('Redirection will be allowed only if this is checked. By default, this is unchecked for non-HTTPS connections, so redirection is not allowed for clear text connections. To override this, check the box to allow redirections even if the connection is insecure and you are really certain you do not care about your database being accessible to any trivial eavesdropper.');
   // mark insecure settings
-  if ($config->get('dblogin_secure', ($base_root == 'https')) && ($base_root != 'https')) {
+  if ($config->get('dblogin.dblogin_secure', ($base_root == 'https')) && ($base_root != 'https')) {
     $description .= '<br /><br />';
     $description .= t('WARNING: the current setting is INSECURE! Your database credentials will transmitted unencrypted. Uncheck this box or enable HTTPS on this site to use this module securely.');
   }
@@ -41,14 +42,14 @@ class dbloginForm extends ConfigFormBase {
     array(
      '#type' => 'checkbox',
      '#title' => $title,
-     '#default_value' => $config->get('dblogin_secure', ($base_root == 'https')),
+     '#default_value' => $config->get('dblogin.dblogin_secure', ($base_root == 'https')),
      '#description' => $description,
     );
   $form['basic']['dblogin_server'] =
     array(
      '#type' => 'textfield', 
      '#title' => t('Base URL'), 
-     '#default_value' => $config->get('dblogin_server', $base_url . '/phpmyadmin/'), 
+     '#default_value' => $config->get('dblogin.dblogin_server', $base_url . '/phpmyadmin/'), 
      '#description' => t('The base URL for the database administration site.'),
     );
 
@@ -64,21 +65,21 @@ class dbloginForm extends ConfigFormBase {
     array(
      '#type' => 'textfield', 
      '#title' => t('Username field'), 
-     '#default_value' => $config->get('dblogin_username', 'pma_username'), 
+     '#default_value' => $config->get('dblogin.dblogin_username', 'pma_username'), 
      '#description' => t('The HTTP query field name for the username field.'),
     );
   $form['advanced']['dblogin_password'] =
     array(
      '#type' => 'textfield', 
      '#title' => t('Password field'), 
-     '#default_value' => $config->get('dblogin_password', 'pma_password'), 
+     '#default_value' => $config->get('dblogin.dblogin_password', 'pma_password'), 
      '#description' => t('The HTTP query field name for the username field.'),
     );
   $form['advanced']['dblogin_extra'] =
     array(
      '#type' => 'textfield', 
      '#title' => t('Extra parameters'), 
-     '#default_value' => $config->get('dblogin_extra', 'server=1'), 
+     '#default_value' => $config->get('dblogin.dblogin_extra', 'server=1'), 
      '#description' => t('Extra query parameters to pass in the URL.'),
     );
 
@@ -86,7 +87,7 @@ class dbloginForm extends ConfigFormBase {
     }
 
     public function submitForm(array &$form, FormStateInterface $form_state){
-        $config = $this->config('dblogin.settings');
+        $config = \Drupal::service('config.factory')->getEditable('dblogin.settings');
         $config->set('dblogin.secure', $form_state->getValue('dblogin_secure'));
         $config->set('dblogin.dblogin_server', $form_state->getValue('dblogin_server'));
         $config->set('dblogin.dblogin_username', $form_state->getValue('dblogin_username'));
